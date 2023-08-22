@@ -2,7 +2,10 @@
   "name": "@dollarify",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "nx run-many -t build",
+    "build:core": "nx build core"
+  },
   "private": true,
   "dependencies": {
     "next": "13.4.1",
@@ -25,8 +28,7 @@
     "@types/jest": "^29.4.0",
     "@types/node": "18.14.2",
     "@types/react": "18.2.14",
-    "@types/react-dom": "18.2.6",
-    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@types/react-dom": "18.2.6", "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "babel-jest": "^29.4.1",
     "eslint": "~8.46.0",
