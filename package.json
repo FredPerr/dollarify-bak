@@ -17,7 +17,8 @@
     "e2e": "nx run-many -t e2e",
     "format:check": "nx format:check",
     "format:write": "nx format:write",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "commitlint": "commitlint --edit"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +28,7 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^17.7.0",
     "@nx/eslint-plugin": "16.7.3",
     "@nx/jest": "16.7.3",
     "@nx/js": "16.7.3",
