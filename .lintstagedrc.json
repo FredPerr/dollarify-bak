@@ -1,0 +1,3 @@
+{
+  "*": ["nx run-many -t lint", "nx format:write"]
+}
