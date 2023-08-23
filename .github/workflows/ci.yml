@@ -1,0 +1,48 @@
+name: 'CI & Release'
+description: 'Build, test, cover report & release'
+on:
+  push:
+    branches: [main, stag, dev]
+  pull_request:
+    branches: [main, stag, dev]
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Use Node.js 20.5
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.5'
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build packages
+        run: pnpm build
+  test:
+    runs-on: ubuntu-20.04
+    needs: build
+    steps:
+      - name: Test packages
+        run: pnpm test
+  coverage-report:
+    runs-on: ubuntu-20.04
+    needs: test
+    steps:
+      - name: Upload coverage reports to Codecov with GitHub Action
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./coverage/
+  release:
+    runs-on: ubuntu-20.04
+    needs: [build, test]
+    if: ${{ needs.build.result == 'success' && needs.test.result == 'success' }}
+    steps:
+      - name: Release packages
+        run: npx semantic-release
+        fail_ci_if_error: false
+        verbose: true
