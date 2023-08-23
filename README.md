@@ -1,6 +1,12 @@
 # Dollarify
 
+![Dollarify logo](./docs/banner.jpg)
+
 [![semantic-release](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+
+[dollarify website](https://dollarify.ca)
+
+**The No-Hassle Budget Tracker and Finances Planning App**
 
 ## Getting Started
 
