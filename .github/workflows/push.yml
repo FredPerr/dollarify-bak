@@ -1,5 +1,9 @@
 name: Release
-on: push
+on:
+  push:
+    branches: [main, staging]
+  pull_request:
+    branches: [main, staging, dev]
 jobs:
   test-and-release:
     runs-on: ubuntu-20.04
