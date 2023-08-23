@@ -3,6 +3,9 @@
 ![Dollarify logo](./docs/banner.jpg)
 
 [![semantic-release](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+<a href="https://github.com/semantic-release/semantic-release/actions?query=workflow%3ATest+branch%3Amaster">
+<img alt="Build states" src="https://github.com/semantic-release/semantic-release/workflows/Test/badge.svg">
+</a>
 
 **The No-Hassle Budget Tracker and Finances Planning App**
 
