@@ -50,6 +50,7 @@
     "@nx/react": "16.7.3",
     "@nx/workspace": "16.7.3",
     "@playwright/test": "^1.36.0",
+    "@semantic-release/github": "^9.0.4",
     "@testing-library/react": "14.0.0",
     "@types/jest": "^29.4.0",
     "@types/node": "18.14.2",
