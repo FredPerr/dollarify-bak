@@ -39,9 +39,8 @@ jobs:
   release:
     runs-on: ubuntu-20.04
     needs: [build, test]
-    allow-failure: true
     if: ${{ needs.build.result == 'success' && needs.test.result == 'success' }}
     steps:
       - name: Release packages
         run: npx semantic-release
-        verbose: true
+        continue-on-error: true
