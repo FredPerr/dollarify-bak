@@ -24,7 +24,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          directory: coverage/
+          directory: coverage/packages/core
 
       - name: Release packages
         run: npx semantic-release
