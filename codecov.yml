@@ -1,0 +1,13 @@
+comment:
+  layout: 'header, diff, flags, components'
+
+component_management:
+  individual_components:
+    - component_id: core
+      name: core
+      paths:
+        - packages/core
+    - component_id: web
+      name: web
+      paths:
+        - packages/web
