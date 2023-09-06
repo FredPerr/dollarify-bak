@@ -1,0 +1,116 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(cuid())
+  email      String   @unique
+  name       String
+  joined_on  DateTime @default(now())
+  last_login DateTime @default(now())
+
+  preferences PreferencesProfile?
+  financials  FinancialProfile?
+}
+
+// UI, Notifications, UX preferences
+model PreferencesProfile {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  lang                String  @default("EN")
+  notifications_push  Boolean @default(false)
+  notifications_email Boolean @default(true)
+}
+
+model FinancialProfile {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  expenses    Expense[]
+  incomes     Income[]
+  loans       Loan[]
+  cashes      Cash[]
+  investments Investment[]
+
+  snapshots Snapshot[]
+}
+
+// Financial objects
+
+model Expense {
+  id         Int              @id @default(autoincrement())
+  profile    FinancialProfile @relation(fields: [profileId], references: [id])
+  profileId  String           @unique
+  Snapshot   Snapshot?        @relation(fields: [snapshotId], references: [id])
+  snapshotId Int?
+}
+
+model Income {
+  id         Int              @id @default(autoincrement())
+  profile    FinancialProfile @relation(fields: [profileId], references: [id])
+  profileId  String           @unique
+  Snapshot   Snapshot?        @relation(fields: [snapshotId], references: [id])
+  snapshotId Int?
+}
+
+model Loan {
+  id         Int              @id @default(autoincrement())
+  profile    FinancialProfile @relation(fields: [profileId], references: [id])
+  profileId  String           @unique
+  Snapshot   Snapshot?        @relation(fields: [snapshotId], references: [id])
+  snapshotId Int?
+}
+
+model Cash {
+  id         Int              @id @default(autoincrement())
+  profile    FinancialProfile @relation(fields: [profileId], references: [id])
+  profileId  String           @unique
+  Snapshot   Snapshot?        @relation(fields: [snapshotId], references: [id])
+  snapshotId Int?
+}
+
+model Investment {
+  id         Int              @id @default(autoincrement())
+  profile    FinancialProfile @relation(fields: [profileId], references: [id])
+  profileId  String           @unique
+  Snapshot   Snapshot?        @relation(fields: [snapshotId], references: [id])
+  snapshotId Int?
+}
+
+// Financial snapshot
+
+model Snapshot {
+  id        Int              @id @default(autoincrement())
+  profile   FinancialProfile @relation(fields: [profileId], references: [id])
+  profileId String           @unique
+
+  last_updated DateTime @default(now())
+
+  /// All financial objects to consider in the calculation of the total expense, loans, ...
+  expenses    Expense[]
+  incomes     Income[]
+  loans       Loan[]
+  cashes      Cash[]
+  investments Investment[]
+
+  /// Calculate the total_* per on `date`
+  date             DateTime @default(now())
+  expires          DateTime
+  total_expense    Int
+  total_income     Int
+  total_loan       Int
+  total_cash       Int
+  total_investment Int
+  net_worth        Int
+}
