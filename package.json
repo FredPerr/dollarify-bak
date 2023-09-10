@@ -19,23 +19,28 @@
     "lint": "nx run-many -t lint",
     "lint:web": "nx lint web",
     "lint:web-e2e": "nx lint web-e2e",
-    "test": "nx run-many -t test -- --coverage",
-    "test:core": "nx test core -- --coverage",
-    "test:web": "nx test web -- --coverage",
+    "test": "nx run-many -t test",
+    "test:core": "nx test core",
+    "test:web": "nx test web",
     "e2e:web": "nx e2e web-e2e",
     "e2e": "nx run-many -t e2e",
     "format:check": "nx format:check",
     "format:write": "nx format:write",
     "prepare": "husky install",
     "commitlint": "commitlint --edit",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "clean": "rm -rdf ./node_modules",
+    "clean:cache": "rm -rdf ./node_modules/.cache/nx"
   },
   "private": true,
   "dependencies": {
+    "@prisma/client": "^5.2.0",
     "next": "13.4.1",
+    "prisma": "^5.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.7.0",
@@ -59,6 +64,7 @@
     "@types/node": "18.14.2",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
+    "@types/uuid": "^9.0.3",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "babel-jest": "^29.4.1",
