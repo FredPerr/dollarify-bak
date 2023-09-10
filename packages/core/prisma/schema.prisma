@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:dev.db"
 }
 
 model User {
@@ -54,6 +54,25 @@ model Expense {
   profileId  String           @unique
   Snapshot   Snapshot?        @relation(fields: [snapshotId], references: [id])
   snapshotId Int?
+
+  name   String /// Max should be 50 chars
+  desc   String? /// Max should be 100 chars
+  amount Float
+  date   DateTime
+
+  /// in hours, 0 = no repetition
+  recurring_delay Int
+  /// repetitions after the initial transaction, 0 for eternal repetition.
+  iterations      Int
+  /// true to compound by taking into account the fraction of a started period.
+  continuous      Boolean
+
+  /// in hours, 0 = no interests, 0.10 = 10% interests, -0.10 = -10%
+  interests_percent    Float
+  /// in hours, 0 = no interests
+  interests_delay      Int
+  /// true to compound the interests every ms/seconds/min; false to only compound at the end of period.
+  interests_continuous Boolean
 }
 
 model Income {
@@ -62,6 +81,25 @@ model Income {
   profileId  String           @unique
   Snapshot   Snapshot?        @relation(fields: [snapshotId], references: [id])
   snapshotId Int?
+
+  name   String /// Max should be 50 chars
+  desc   String? /// Max should be 100 chars
+  amount Float
+  date   DateTime
+
+  /// in hours, 0 = no repetition
+  recurring_delay Int
+  /// repetitions after the initial transaction, 0 for eternal repetition.
+  iterations      Int
+  /// true to compound by taking into account the fraction of a started period.
+  continuous      Boolean
+
+  /// in hours, 0 = no interests, 0.10 = 10% interests, -0.10 = -10%
+  interests_percent    Float
+  /// in hours, 0 = no interests
+  interests_delay      Int
+  /// true to compound the interests every ms/seconds/min; false to only compound at the end of period.
+  interests_continuous Boolean
 }
 
 model Loan {
@@ -70,6 +108,18 @@ model Loan {
   profileId  String           @unique
   Snapshot   Snapshot?        @relation(fields: [snapshotId], references: [id])
   snapshotId Int?
+
+  name   String /// Max should be 50 chars
+  desc   String? /// Max should be 100 chars
+  amount Float
+  date   DateTime
+
+  /// in hours, 0 = no interests, 0.10 = 10% interests, -0.10 = -10%
+  interests_percent    Float
+  /// in hours, 0 = no interests
+  interests_delay      Int
+  /// true to compound the interests every ms/seconds/min; false to only compound at the end of period.
+  interests_continuous Boolean
 }
 
 model Cash {
@@ -78,6 +128,11 @@ model Cash {
   profileId  String           @unique
   Snapshot   Snapshot?        @relation(fields: [snapshotId], references: [id])
   snapshotId Int?
+
+  name   String /// Max should be 50 chars
+  desc   String? /// Max should be 100 chars
+  amount Float
+  date   DateTime
 }
 
 model Investment {
@@ -86,6 +141,25 @@ model Investment {
   profileId  String           @unique
   Snapshot   Snapshot?        @relation(fields: [snapshotId], references: [id])
   snapshotId Int?
+
+  name   String /// Max should be 50 chars
+  desc   String? /// Max should be 100 chars
+  amount Float
+  date   DateTime
+
+  /// in hours, 0 = no repetition
+  recurring_delay Int
+  /// repetitions after the initial transaction, 0 for eternal repetition.
+  iterations      Int
+  /// true to compound by taking into account the fraction of a started period.
+  continuous      Boolean
+
+  /// in hours, 0 = no interests, 0.10 = 10% interests, -0.10 = -10%
+  interests_percent    Float
+  /// in hours, 0 = no interests
+  interests_delay      Int
+  /// true to compound the interests every ms/seconds/min; false to only compound at the end of period.
+  interests_continuous Boolean
 }
 
 // Financial snapshot
