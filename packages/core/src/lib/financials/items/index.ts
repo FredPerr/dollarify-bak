@@ -1,5 +1,5 @@
 import { validateMax, validateMin } from '../../utils/validation';
-import { Base, Inflatable, Iterable, Ownership } from '../attributes';
+import { Base, Inflatable, Iterable } from '../attributes';
 
 class BaseItem implements Base {
   name: string;
