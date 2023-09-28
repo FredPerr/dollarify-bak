@@ -1,0 +1,146 @@
+datasource db {
+  //url      = env("DATABASE_URL")
+  url      = "file:./dev.db"
+  provider = "sqlite"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id          String   @id @default(cuid())
+  created_on  DateTime @default(now())
+  last_joined DateTime @default(now())
+  email       String   @unique
+  name        String
+
+  account Account?
+}
+
+model Account {
+  id String @id @default(cuid())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  expenses    Expense[]
+  incomes     Income[]
+  loans       Loan[]
+  cashes      Cash[]
+  investments Investment[]
+  debts       Debt[]
+
+  scenarios Scenario[]
+}
+
+model Expense {
+  id        BigInt  @id @default(autoincrement())
+  account   Account @relation(fields: [accountId], references: [id])
+  accountId String
+
+  begin_date    DateTime
+  name          String
+  desc          String
+  initial_value Float
+  pmt           Float
+  nper          Float
+  periods       Float
+  rate          Float
+}
+
+model Income {
+  id        BigInt  @id @default(autoincrement())
+  account   Account @relation(fields: [accountId], references: [id])
+  accountId String
+
+  begin_date    DateTime
+  name          String
+  desc          String
+  initial_value Float
+  pmt           Float
+  nper          Float
+  periods       Float
+  rate          Float
+}
+
+model Cash {
+  id        BigInt  @id @default(autoincrement())
+  account   Account @relation(fields: [accountId], references: [id])
+  accountId String
+
+  begin_date    DateTime
+  name          String
+  desc          String
+  initial_value Float
+  pmt           Float
+  nper          Float
+  periods       Float
+  rate          Float
+}
+
+model Loan {
+  id        BigInt  @id @default(autoincrement())
+  account   Account @relation(fields: [accountId], references: [id])
+  accountId String
+
+  begin_date    DateTime
+  name          String
+  desc          String
+  initial_value Float
+  pmt           Float
+  nper          Float
+  periods       Float
+  rate          Float
+}
+
+model Investment {
+  id        BigInt  @id @default(autoincrement())
+  account   Account @relation(fields: [accountId], references: [id])
+  accountId String
+
+  begin_date    DateTime
+  name          String
+  desc          String
+  initial_value Float
+  pmt           Float
+  nper          Float
+  periods       Float
+  rate          Float
+}
+
+model Debt {
+  id        BigInt  @id @default(autoincrement())
+  account   Account @relation(fields: [accountId], references: [id])
+  accountId String
+
+  begin_date    DateTime
+  name          String
+  desc          String
+  initial_value Float
+  pmt           Float
+  nper          Float
+  periods       Float
+  rate          Float
+}
+
+model Scenario {
+  id        String  @id @default(cuid())
+  account   Account @relation(fields: [accountId], references: [id])
+  accountId String
+
+  name       String
+  created_on DateTime @default(now())
+
+  ref_date DateTime
+
+  sum_expenses      Float
+  sum_incomes       Float
+  sum_investments   Float
+  sum_cashes        Float
+  sum_loans         Float
+  sum_debts         Float
+  total_assets      Float
+  total_liabilities Float
+  total_net_worth   Float
+}
